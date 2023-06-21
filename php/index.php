@@ -35,18 +35,23 @@
             return $donnees;
         }
         function handleFiles() {
-            
-            $path = 'uploaded/' . $_FILES['photo']['name'];
 
-            if (isset($_FILES) && $_FILES['photo']['error'] == 0) {
-                if ($_FILES['photo']['size'] > 2000000) {
+            $name = $_FILES['photo']['name'];
+            $tmpName = $_FILES['photo']['tmp_name'];
+            $size_img = $_FILES['photo']['size'];
+            $error = $_FILES['photo']['error'];
+
+            $path = 'uploaded/' .$name;
+
+            if (isset($_FILES) && $error == 0) {
+                if ($size_img > 2000000) {
                     echo '<div class=" d-flex justify-content-center alert alert-danger">La taille doit être inférieur à 2MO</div>';
                     session_destroy();
                 } else if (pathinfo($path)['extension'] == 'pdf') {
                     echo '<div class=" d-flex justify-content-center alert alert-danger">Extension "pdf" non pris en charge</div>';
                     session_destroy();
                 } else {
-                    move_uploaded_file($_FILES["photo"]["tmp_name"],$path);
+                    move_uploaded_file($tmpName,$path);
                     echo '<div class=" d-flex justify-content-center alert alert-success">Données enregistré</div>';
                 }
             } 
@@ -66,8 +71,7 @@
         $genre = $_POST['sexe'];
         $color = $_POST['color'];
         $birth = $_POST['birth'];
-        $skills = $_POST['skills'];
-        $img = $_FILES['photo'];
+        
 
         // On stock les données dans un tableau
         $table = array();
@@ -78,8 +82,46 @@
         $table['sexe'] = $genre;
         $table['color'] = $color;
         $table['birth'] = $birth;
-        $table['skills'] = $skills;
-        $table['image'] = $img;
+
+        if (isset($_POST['HTML'])) {
+            $table['html'] = $_POST['HTML'];
+        }
+
+        if (isset($_POST['CSS'])) {
+            $table['css'] = $_POST['CSS'];
+        }
+
+        if (isset($_POST['JAVASCRIPT'])) {
+            $table['javascript'] = $_POST['JAVASCRIPT'];
+        }
+
+        if (isset($_POST['PHP'])) {
+            $table['php'] =  $_POST['PHP'];
+        }
+
+        if (isset($_POST['MYSQL'])) {
+            $table['mysql'] = $_POST['MYSQL'];
+        }
+
+        if (isset($_POST['BOOTSTRAP'])) {
+            $table['bootstrap'] = $_POST['BOOTSTRAP'];
+        }
+
+        if (isset($_POST['SYMFONY'])) {
+            $table['symfony'] = $_POST['SYMFONY'];
+        }
+
+        if (isset($_POST['REACT'])) {
+            $table['react'] = $_POST['REACT'];
+        }
+
+        $table['img'] = array(
+            'tmp_name' => $_FILES['photo']['tmp_name'],
+            'type' => $_FILES['photo']['type'],
+            'name' => $_FILES['photo']['name'],
+            'size_img' => $_FILES['photo']['size'],
+            'error' => $_FILES['photo']['error']
+        );
         
         
         // On stocke les données de l'utilisateur dans la session 
@@ -88,7 +130,8 @@
         handleFiles();
 
 
-    } 
+    }
+ 
 ?>
 
 <div class='container'>
@@ -109,7 +152,7 @@
 
         <div class='col-9'>
 
-            <a id="id" href="?id=form" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter des données</a>
+            <!-- <a id="id" href="?id=form" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter des données</a> -->
             <a id="id" href="?id=form2" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter plus des données</a>
             
             <?php
@@ -172,11 +215,17 @@
                                 echo '<br><br><div class=" d-flex justify-content-center alert alert-danger alert-success">Données ERRONÉES</div>';
                             }else {
                                 # code...
-                                $table = $_SESSION['table'];
                                 echo '===> Lecture du tableau a l\'aide d\'une boucle foreach<br><br>';
+                                $table = $_SESSION['table'];
                                 $n = 0;
+    
                                 foreach ($table as $key => $value) {
-                                    echo 'à la ligne n°'. $n++ .' correspond la clé '. $key .' et contient "'. $value .'"<br>';
+                                    if ($key != 'img') {
+                                        echo "à la ligne n°" . $n++ . " correspond la clé " . $key . " et contient " . $value . "<br>";
+                                    } else {
+                                        echo "à la ligne n°" . $n++ . " correspond la clé " . $key . " et contient <br>";
+                                        echo "<img class='mw-100' src='./uploaded/" . $value['name'] . "' alt='Image " . $value['name'] . "'><br><br>";
+                                    }
                                 }
                             }
                             
@@ -195,7 +244,12 @@
                                     $table = $_SESSION['table'];
                                     $n = 0;
                                     foreach ($table as $key => $value) {
-                                        echo 'à la ligne n°'. $n++ .' correspond la clé '. $key .' et contient "'. $value .'"<br>';
+                                        if ($key != 'img') {
+                                            echo "à la ligne n°" . $n++ . " correspond la clé " . $key . " et contient " . $value . "<br>";
+                                        } else {
+                                            echo "à la ligne n°" . $n++ . " correspond la clé " . $key . " et contient <br>";
+                                            echo "<img class='mw-100' src='./uploaded/" . $value['name'] . "' alt='Image " . $value['name'] . "'><br><br>";
+                                        }
                                     }
                                 };
                                 readTable();

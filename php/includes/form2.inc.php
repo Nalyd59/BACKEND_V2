@@ -41,35 +41,35 @@
             <legend>Connaissances</legend>
             <div>
                 <label for="html">HTML</label>
-                <input type="checkbox" name="skills[]" value="HTML">
+                <input type="checkbox" name="HTML" value="HTML">
             </div>
             <div>
                 <label for="css">CSS</label>
-                <input type="checkbox" name="skills[]" value="CSS">
+                <input type="checkbox" name="CSS" value="CSS">
             </div>
             <div>
                 <label for="javascript">JavaScript</label>
-                <input type="checkbox" name="skills[]" value="JAVASCRIPT">
+                <input type="checkbox" name="JAVASCRIPT" value="JAVASCRIPT">
             </div>
             <div>
                 <label for="php">PHP</label>
-                <input type="checkbox" name="skills[]" value="PHP">
+                <input type="checkbox" name="PHP" value="PHP">
             </div>
             <div>
                 <label for="mysql">MySQL</label>
-                <input type="checkbox" name="skills[]" value="MySQL">
+                <input type="checkbox" name="MYSQL" value="MYSQL">
             </div>
             <div>
                 <label for="bootstrap">Bootstrap</label>
-                <input type="checkbox" name="skills[]" value="BOOTSTRAP">
+                <input type="checkbox" name="BOOTSTRAP" value="BOOTSTRAP">
             </div>
             <div>
                 <label for="symfony">Symfony</label>
-                <input type="checkbox" name="skills[]" value="SYMFONY">
+                <input type="checkbox" name="SYMFONY" value="SYMFONY">
             </div>
             <div>
                 <label for="react">React</label>
-                <input type="checkbox" name="skills[]" value="REACT">
+                <input type="checkbox" name="REACT" value="REACT">
             </div>
             <br>
             <div>
